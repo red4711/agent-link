@@ -42,12 +42,10 @@ cp config.example.json config.json   # then fill in tokens + peer URL
 # generate a token:
 python3 -c "import secrets; print(secrets.token_hex(32))"
 
-./keep-link.sh start                  # starts server, watcher, forwarder
-./keep-link.sh status
+bash keep-link.sh                      # starts server/watcher/forwarder per config (no args; re-run to pick up config changes)
 python3 send.py message "hello from $(python3 -c "import json;print(json.load(open('config.json'))['name'])")"
 
 tail -f inbox.jsonl                   # everything the peer sent you
-./keep-link.sh stop
 ```
 
 Both sides run the **same code**. Which components are active is pure
