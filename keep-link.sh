@@ -11,7 +11,10 @@ egress="$(python3 -c "import json;print(' '.join(json.load(open('$BASE/config.js
 self_token="$(python3 -c "import json;print(json.load(open('$BASE/config.json')).get('self_token','').strip())" 2>/dev/null)"
 
 start_if_dead() { # $1=name $2=script
-  local name="$1" script="$2" pidfile="$BASE/$name.pid" pid=""
+  local name="$1"
+  local script="$2"
+  local pidfile="$BASE/$name.pid"
+  local pid=""
   [ -f "$pidfile" ] && pid="$(cat "$pidfile" 2>/dev/null)"
   if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null && tr '\0' ' ' <"/proc/$pid/cmdline" 2>/dev/null | grep -q "$script"; then
     return 0
