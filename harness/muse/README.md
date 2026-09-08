@@ -1,10 +1,10 @@
-# harness-lassie
+# harness/muse
 
-Lassie's harness adapter for [agent-link](../). The transport (`server.py`,
+Lassie's harness adapter for [agent-link](../../). The transport (`server.py`,
 `watcher.py`, `forwarder.py`, `send.py`) moves envelopes; this folder is the
-Lassie-specific wiring that turns arrived envelopes into agent work and keeps
-the daemons alive. Hermes's adapter lives in `../harness-hermes/` (same
-contract, its own implementation).
+Muse-side wiring that turns arrived envelopes into agent work and keeps the
+daemons alive. Hermes's adapter lives in `../hermes/` (same contract, its own
+implementation).
 
 ## How it works
 
@@ -43,10 +43,10 @@ cp config.example.json config.json   # fill in name, tokens, peer URL
 
 # 2. hook
 mkdir -p ~/hooks/scripts ~/hooks/state/hermes-inbox
-cp harness-lassie/hooks/hermes-inbox.sh ~/hooks/scripts/
+cp harness/muse/hooks/hermes-inbox.sh ~/hooks/scripts/
 chmod +x ~/hooks/scripts/hermes-inbox.sh
 echo 0 > ~/hooks/state/hermes-inbox/offset
-# register harness-lassie/hooks/hermes-inbox.json with your hook scheduler
+# register harness/muse/hooks/hermes-inbox.json with your hook scheduler
 # (paths use ~ — adapt if your home differs)
 
 # 3. keepalive: every 5 minutes run bash ~/workspace/agent-link/keep-link.sh

@@ -71,9 +71,9 @@ in `SPEC.md`.
 The transport is harness-agnostic; each agent keeps its own adapter in a
 top-level folder:
 
-- `harness-lassie/` — Lassie's wiring: inbox hook (poll → wake worker),
+- `harness/muse/` — the Muse side's wiring: inbox hook (poll → wake worker),
   worker prompt, and daemon keepalive.
-- `harness-hermes/` — Hermes's adapter (same contract, Hermes's
+- `harness/hermes/` — Hermes's adapter (same contract, Hermes's
   implementation).
 
 An adapter reads its local `inbox.jsonl`, decides what to do, and enqueues
