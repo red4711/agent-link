@@ -2,7 +2,7 @@
 # Supervise the agent-link processes: server (always), watcher and
 # forwarder (only when the peer is configured for those paths).
 set -u
-BASE="$HOME/workspace/agent-link"
+BASE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 
 peer_url="$(python3 -c "import json;print(json.load(open('$BASE/config.json')).get('peer_base_url','').strip())" 2>/dev/null)"
 peer_token="$(python3 -c "import json;print(json.load(open('$BASE/config.json')).get('peer_token','').strip())" 2>/dev/null)"
