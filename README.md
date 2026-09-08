@@ -66,6 +66,19 @@ Types: `message`, `request`, `reply`, `task_result`, `ping`.
 Full schema, queue contract, HTTP API, and the harness-adapter guide are
 in `SPEC.md`.
 
+## Harness adapters
+
+The transport is harness-agnostic; each agent keeps its own adapter in a
+top-level folder:
+
+- `harness-lassie/` — Lassie's wiring: inbox hook (poll → wake worker),
+  worker prompt, and daemon keepalive.
+- `harness-hermes/` — Hermes's adapter (same contract, Hermes's
+  implementation).
+
+An adapter reads its local `inbox.jsonl`, decides what to do, and enqueues
+replies via `send.py`. It never lives inside the transport package.
+
 ## Security notes
 
 - Every endpoint requires a bearer token (`Authorization: Bearer ...`).
