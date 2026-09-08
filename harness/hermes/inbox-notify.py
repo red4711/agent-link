@@ -73,6 +73,13 @@ def read_sent():
         with open(STATE) as f:
             return int(f.read().strip() or 0)
     except (OSError, ValueError):
+        pass
+    # First run: seed from the harness offset so already-processed mail
+    # doesn't trigger a redundant wake.
+    try:
+        with open(os.path.join(BASE, "state", "harness.offset")) as f:
+            return int(f.read().strip() or 0)
+    except (OSError, ValueError):
         return 0
 
 
