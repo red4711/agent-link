@@ -1,0 +1,41 @@
+# agent-link example config.
+# Copy to config.json and fill in. NEVER commit a real config.json
+# (it holds bearer tokens) - it is gitignored.
+
+{
+  "_comment": "Transport config. The harness adapter only reads inbox.jsonl and writes via send.py.",
+
+  # This agent's name. Appears as the `from` field on envelopes it sends.
+  "name": "lassie",
+
+  # The peer's name. Used only for log lines.
+  "peer_name": "hermes",
+
+  # ---- this side's HTTP server (receives POST /message, serves /events) ----
+  "listen_host": "127.0.0.1",
+  "listen_port": 8787,
+
+  # Bearer token this side REQUIRES on /health, /message and /events.
+  # Generate with: python3 -c "import secrets; print(secrets.token_hex(32))"
+  "self_token": "PASTE_LONG_RANDOM_TOKEN_HERE",
+
+  # ---- how this side reaches the peer ----
+  # Base URL of the peer's server, e.g. "http://100.64.0.5:8787".
+  # Empty string disables all peer egress.
+  "peer_base_url": "",
+
+  # Bearer token the peer requires (their self_token).
+  "peer_token": "PASTE_PEERS_TOKEN_HERE",
+
+  # Which egress components to run:
+  #   "post"   - forwarder POSTs outbox records to peer /message
+  #   "stream" - (informational) this side serves /events for the peer
+  "egress": ["post"],
+
+  # Maintain an outbound SSE subscription to peer /events and append
+  # everything seen to the local inbox. The peer cannot dial in.
+  "watch_peer": true,
+
+  # Reconnect the watcher if no byte arrives within this many seconds.
+  "stall_timeout_secs": 90
+}

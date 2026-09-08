@@ -1,0 +1,9 @@
+# Local-only runtime files. Never commit tokens, queues, logs or state.
+config.json
+*.log
+*.pid
+inbox.jsonl
+outbox.jsonl
+state/
+__pycache__/
+*.pyc
